@@ -1,15 +1,16 @@
 package com.github.oocamp.exercise;
 
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
+import java.math.BigDecimal;
 
 public class RandomIndependentEvent {
 
-    @DecimalMin(value = "0")
-    @DecimalMax(value = "1.0")
+    private static final BigDecimal FULL_PROBABILITY = new BigDecimal(1);
+    private static final BigDecimal ZERO_PROBABILITY = new BigDecimal(0);
+
     private double probability;
 
     public RandomIndependentEvent(double probability) {
+        checkProbability(probability);
         this.probability = probability;
     }
 
@@ -28,5 +29,12 @@ public class RandomIndependentEvent {
     public RandomIndependentEvent or(RandomIndependentEvent anotherEvent) {
         double anotherProbability = anotherEvent.getProbability();
         return new RandomIndependentEvent(probability + anotherProbability - probability * anotherProbability);
+    }
+
+    private void checkProbability(double probability) {
+        BigDecimal decimal = new BigDecimal(probability);
+        if(FULL_PROBABILITY.compareTo(decimal) < 0 || ZERO_PROBABILITY.compareTo(decimal) > 0) {
+            throw new IllegalArgumentException("事件概率应在[0,1]区间内");
+        }
     }
 }
