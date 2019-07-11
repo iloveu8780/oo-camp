@@ -1,6 +1,5 @@
 package com.github.oocamp.exercise
 
-
 import spock.lang.Specification
 
 class LocaleUtilsTest extends Specification {
@@ -141,9 +140,9 @@ class LocaleUtilsTest extends Specification {
         actualLocale.variant == expectedVariant
 
         where:
-        str         | expectedLanguage | expectedCounttry | expectedVariant
-        "qq_AA_123" | "qq"             | "AA"             | "123"
-        "qq_123_123" | "qq"             | "123"             | "123"
-        "qqq__123"  | "qqq"            | ""               | "123"
+        str          | expectedLanguage | expectedCounttry | expectedVariant
+        "qq_AA_123"  | "qq"             | "AA"             | "123"
+        "qq_123_123" | "qq"             | "123"            | "123"
+        "qqq__123"   | "qqq"            | ""               | "123"
     }
 }
