@@ -1,2 +1,9 @@
+buildscript {
+    repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        mavenCentral()
+    }
+}
+
 rootProject.name = 'oo-camp'
-include 'lesson1'
+include 'lesson1','lesson2'

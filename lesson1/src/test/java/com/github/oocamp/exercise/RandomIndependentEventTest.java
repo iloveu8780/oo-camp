@@ -1,13 +1,10 @@
 package com.github.oocamp.exercise;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@ExtendWith(MockitoExtension.class)
 public class RandomIndependentEventTest {
 
     @Test
@@ -41,10 +38,21 @@ public class RandomIndependentEventTest {
     }
 
     @Test
-    public void should_throw_exception_when_probability_not_in_0_to_1_range() {
+    public void should_throw_exception_when_probability_is_smaller_than_0() {
         assertThrows(IllegalArgumentException.class,
-                () -> new RandomIndependentEvent(2),
-                "事件概率应在[0,1]区间内");
+                () -> new RandomIndependentEvent(-1),
+                "probability should be in [0,1]");
     }
+
+    @Test
+    public void should_throw_exception_when_probability_is_great_than_1() {
+        assertThrows(IllegalArgumentException.class,
+            () -> new RandomIndependentEvent(2),
+            "probability should be in [0,1]");
+    }
+
+
+
+
 
 }

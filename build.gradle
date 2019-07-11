@@ -1,15 +1,12 @@
-buildscript {
-    repositories {
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-        mavenCentral()
-    }
-}
-
 plugins {
-    id 'java'
-    id 'java-library'
     id 'idea'
+    id 'java'
 }
+group = 'com.github.oocamp'
+version = '1.0'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 allprojects {
     repositories {
@@ -18,33 +15,27 @@ allprojects {
         mavenCentral()
     }
 
-    apply plugin: 'java'
-    apply plugin: 'idea'
+    apply plugin: 'java' 
+    apply from: file("${rootDir}/gradle/script/coverage.gradle")
 
-    group = 'com.github.oocamp'
-    version = '1.0'
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
     ext {
-        guavaVersion = '27.1-jre'
         assertjVersion = '3.12.1'
         junitVersion = '5.2.0'
         mockitoVersion = '2.25.0'
     }
 
     dependencies {
-        compile("com.google.guava:guava:$guavaVersion")
         testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
         testImplementation("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
-        testImplementation("org.mockito:mockito-junit-jupiter:$mockitoVersion")
         testImplementation("org.assertj:assertj-core:$assertjVersion")
-        testImplementation("org.mockito:mockito-core:$mockitoVersion")
+        testImplementation("junit:junit:4.12")
     }
 
     test {
-        testLogging {
-            events 'PASSED', 'FAILED', 'SKIPPED'
+        jacoco {
+            enabled = true
+            includes = ['com.*']
+            excludes = []
         }
-        useJUnitPlatform()
     }
 }

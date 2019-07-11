@@ -23,7 +23,7 @@ public class RandomIndependentEvent {
     }
 
     public RandomIndependentEvent and(RandomIndependentEvent anotherEvent) {
-        return new RandomIndependentEvent(probability * anotherEvent.getProbability());
+        return new RandomIndependentEvent(probability * anotherEvent.probability);
     }
 
     public RandomIndependentEvent or(RandomIndependentEvent anotherEvent) {
@@ -34,7 +34,7 @@ public class RandomIndependentEvent {
     private void checkProbability(double probability) {
         BigDecimal decimal = new BigDecimal(probability);
         if(FULL_PROBABILITY.compareTo(decimal) < 0 || ZERO_PROBABILITY.compareTo(decimal) > 0) {
-            throw new IllegalArgumentException("事件概率应在[0,1]区间内");
+            throw new IllegalArgumentException("probability should be in [0,1]");
         }
     }
 }
